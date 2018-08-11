@@ -128,6 +128,9 @@
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_PROJECTILE_HIT, target, blocked) & COMPONENT_PROJECTILE_NO_EFFECT)
+		return 0
+
 	var/turf/target_loca = get_turf(target)
 
 	var/hitx

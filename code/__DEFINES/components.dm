@@ -148,6 +148,14 @@
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul" 				//return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/targeted/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//from base of obj/item/hit_reaction(): (list/args)
 
+// /obj/item/gun signals
+#define COMSIG_GUN_CAN_FIRE "gun_check_can_fire"				//from base of obj/item/gun/can_shoot(): (mob/living/user)
+	#define COMPONENT_NO_FIRE 1
+
+// /obj/item/projectile signals
+#define COMSIG_PROJECTILE_HIT "projectile_impact"				//from base of obj/item/projectile/on_hit(): (atom/target, blocked)
+	#define COMPONENT_PROJECTILE_NO_EFFECT 1
+
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//from base of obj/item/clothing/shoes/proc/step_action(): ()
 

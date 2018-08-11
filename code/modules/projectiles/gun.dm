@@ -101,7 +101,9 @@
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
-/obj/item/gun/proc/can_shoot()
+/obj/item/gun/proc/can_shoot(mob/living/user)
+	if(SEND_SIGNAL(src, COMSIG_GUN_CAN_FIRE, user) & COMPONENT_NO_FIRE)
+		return FALSE
 	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
