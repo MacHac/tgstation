@@ -74,6 +74,8 @@
 	icon_state = "privatecrate"
 	var/datum/bank_account/buyer_account
 	var/privacy_lock = TRUE
+	//The refund amount if this is shipped back.
+	var/orig_cost = 0
 
 /obj/structure/closet/crate/secure/owned/examine(mob/user)
 	. = ..()

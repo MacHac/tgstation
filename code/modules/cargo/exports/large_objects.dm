@@ -3,7 +3,12 @@
 	k_elasticity = 0
 	unit_name = "crate"
 	export_types = list(/obj/structure/closet/crate)
-	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden)
+	exclude_types = list(
+		/obj/structure/closet/crate/large,
+		/obj/structure/closet/crate/wooden,
+		/obj/structure/closet/crate/secure/owned,
+		/obj/structure/closet/crate/coffin
+	)
 
 /datum/export/large/crate/total_printout(datum/export_report/ex, notes = TRUE) // That's why a goddamn metal crate costs that much.
 	. = ..()
@@ -19,6 +24,22 @@
 /datum/export/large/crate/wooden/ore
 	unit_name = "ore box"
 	export_types = list(/obj/structure/ore_box)
+
+/datum/export/large/crate/private
+	unit_name = "private crate"
+	export_types = list(/obj/structure/closet/crate/secure/owned)
+
+/datum/export/large/crate/private/get_cost(obj/O)
+	var/obj/structure/closet/crate/secure/owned/C = O
+	var/datum/bank_account/purchaser = C.buyer_account
+
+	if (!C.privacy_lock)
+		return 500	//Can't return a crate that's been opened, treat like a normal crate
+
+	//Still has contents, honor the return policy.
+	purchaser.adjust_money(C.orig_cost)
+	purchaser.bank_card_talk("A crate that you ordered has been returned successfully.  [C.orig_cost] credits have been returned to your account.")
+	return 0 //Cargo already collected the handling fee.
 
 /datum/export/large/crate/wood
 	cost = 240
