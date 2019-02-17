@@ -85,6 +85,9 @@
 	. = ..()
 	buyer_account = _buyer_account
 
+	//Complementary package tracking: The purchaser gets an alert when their package leaves the shuttle.
+	AddComponent(/datum/component/area_tracker/cargo_order_notice, /area/quartermaster)
+
 /obj/structure/closet/crate/secure/owned/togglelock(mob/living/user, silent)
 	if(privacy_lock)
 		if(!broken)
