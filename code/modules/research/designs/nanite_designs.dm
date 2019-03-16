@@ -18,11 +18,11 @@
 	program_type = /datum/nanite_program/metabolic_synthesis
 	category = list("Utility Nanites")
 
-/datum/design/nanites/digestive_reclaimation
-	name = "Digestive Reclaimation"
+/datum/design/nanites/digestive_reclamation
+	name = "Digestive Reclamation"
 	desc = "The nanites feed off the user's fat stores, rapidly (though inefficiently) replicating themselves."
 	id = "digestive_nanites"
-	program_type = /datum/nanite_program/digestive_reclaimation
+	program_type = /datum/nanite_program/digestive_reclamation
 	category = list("Utility Nanites")
 
 /datum/design/nanites/transfer

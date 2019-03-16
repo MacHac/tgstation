@@ -18,8 +18,8 @@
 /obj/item/disk/nanite_program/metabolic_synthesis
 	program_type = /datum/nanite_program/metabolic_synthesis
 
-/obj/item/disk/nanite_program/digestive_reclaimation
-	program_type = /datum/nanite_program/digestive_reclaimation
+/obj/item/disk/nanite_program/digestive_reclamation
+	program_type = /datum/nanite_program/digestive_reclamation
 
 /obj/item/disk/nanite_program/transfer
 	program_type = /datum/nanite_program/triggered/transfer

@@ -252,13 +252,13 @@
 /datum/nanite_program/metabolic_synthesis/active_effect()
 	host_mob.adjust_nutrition(-0.5)
 
-/datum/nanite_program/digestive_reclaimation
-	name = "Digestive Reclaimation"
+/datum/nanite_program/digestive_reclamation
+	name = "Digestive Reclamation"
 	desc = "The nanites feed off the user's fat stores, rapidly (though inefficiently) replicating themselves."
 	use_rate = -2
 	rogue_types = list(/datum/nanite_program/toxic)
 
-/datum/nanite_program/digestive_reclaimation/check_conditions()
+/datum/nanite_program/digestive_reclamation/check_conditions()
 	if(!iscarbon(host_mob))
 		return FALSE
 	var/mob/living/carbon/C = host_mob
@@ -266,7 +266,7 @@
 		return FALSE
 	return ..()
 
-/datum/nanite_program/digestive_reclaimation/active_effect()
+/datum/nanite_program/digestive_reclamation/active_effect()
 	host_mob.adjust_nutrition(-6)	//Uses three nutrition per one nanite vs metabolic's one
 
 /datum/nanite_program/triggered/access
