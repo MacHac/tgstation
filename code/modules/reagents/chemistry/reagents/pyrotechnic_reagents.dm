@@ -225,6 +225,10 @@
 		shock_timer = 0
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
+
+	if(M.GetComponent(/datum/component/nanites)) //Teslium quickly purges nanites from the body
+		var/datum/component/nanites/N = M.GetComponent(/datum/component/nanites)
+		N.adjust_nanites(null, -50)
 	..()
 
 /datum/reagent/teslium/energized_jelly
