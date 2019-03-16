@@ -18,12 +18,26 @@
 	program_type = /datum/nanite_program/metabolic_synthesis
 	category = list("Utility Nanites")
 
+/datum/design/nanites/digestive_reclaimation
+	name = "Digestive Reclaimation"
+	desc = "The nanites feed off the user's fat stores, rapidly (though inefficiently) replicating themselves."
+	id = "digestive_nanites"
+	program_type = /datum/nanite_program/digestive_reclaimation
+	category = list("Utility Nanites")
+
+/datum/design/nanites/transfer
+	name = "Colony Transfer"
+	desc = "Part of the cluster is launched at a nearby person via the windpipe, installing a local copy of the user's nanites."
+	id = "transfer_nanites"
+	program_type = /datum/nanite_program/triggered/transfer
+	category = list("Utility Nanites")
+
 /datum/design/nanites/viral
 	name = "Viral Replica"
 	desc = "The nanites constantly send encrypted signals attempting to forcefully copy their own programming into other nanite clusters."
 	id = "viral_nanites"
 	program_type = /datum/nanite_program/viral
-	category = list("Utility Nanites")
+	category = list("%&^ERROR(@&")
 
 /datum/design/nanites/monitoring
 	name = "Monitoring"
@@ -344,14 +358,14 @@
 	desc = "Blows up all the nanites inside the host in a chain reaction when triggered."
 	id = "explosive_nanites"
 	program_type = /datum/nanite_program/triggered/explosive
-	category = list("Weaponized Nanites")
+	category = list("%&^ERROR(@&")
 
 /datum/design/nanites/mind_control
 	name = "Mind Control"
 	desc = "The nanites imprint an absolute directive onto the host's brain while they're active."
 	id = "mindcontrol_nanites"
 	program_type = /datum/nanite_program/mind_control
-	category = list("Weaponized Nanites")
+	category = list("%&^ERROR(@&")
 
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////
 

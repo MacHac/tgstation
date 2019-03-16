@@ -18,6 +18,12 @@
 /obj/item/disk/nanite_program/metabolic_synthesis
 	program_type = /datum/nanite_program/metabolic_synthesis
 
+/obj/item/disk/nanite_program/digestive_reclaimation
+	program_type = /datum/nanite_program/digestive_reclaimation
+
+/obj/item/disk/nanite_program/transfer
+	program_type = /datum/nanite_program/triggered/transfer
+
 /obj/item/disk/nanite_program/viral
 	program_type = /datum/nanite_program/viral
 
@@ -131,3 +137,12 @@
 
 /obj/item/disk/nanite_program/stun
 	program_type = /datum/nanite_program/triggered/stun
+
+/////Illegal program disk\\\\\
+//One-shot, adds a suspcious category with three extra-FUN nanite programs to one program hub.
+//Available as /datum/uplink_item/role_restricted/nanite_disk to scientists and RDs
+/obj/item/disk/illegal_nanite_disk
+	name = "suspicious disk"
+	desc = "A sticker on this disk indicates that it does not contain illegal nanite programs, and instructs users to plug it into a nanite program hub anyway."
+	var/list/datum/design/nanites/designs = list(/datum/design/nanites/explosive, /datum/design/nanites/mind_control, /datum/design/nanites/viral)
+	var/list/categories = list("%&^ERROR(@&")

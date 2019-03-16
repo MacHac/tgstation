@@ -20,6 +20,7 @@
 						list(name = "Suppression Nanites"),
 						list(name = "Weaponized Nanites")
 						)
+	var/list/datum/design/nanites/local_designs = list()	//Designs specific to this hub
 
 /obj/machinery/nanite_program_hub/Initialize()
 	. = ..()
@@ -34,6 +35,16 @@
 			to_chat(user, "<span class='notice'>You insert [N] into [src]</span>")
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			disk = N
+	else if(istype(I, /obj/item/disk/illegal_nanite_disk))
+		var/obj/item/disk/illegal_nanite_disk/IND = I
+		for(var/D in IND.designs)
+			local_designs += (new D)
+		for(var/category in IND.categories)
+			categories += list(list(name = category)) //if its stupid and it works, that doesn't make it any less stupid
+
+		to_chat(user, "<span class='notice'>You insert [IND] into [src] and a tiny error light comes on.</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		qdel(I)
 	else
 		..()
 
@@ -78,6 +89,14 @@
 				program_design["name"] = D.name
 				program_design["desc"] = D.desc
 				program_list += list(program_design)
+		for(var/datum/design/nanites/D in local_designs)	//Add locally-available designs
+			if(current_category in D.category)
+				var/list/program_design = list()
+				program_design["id"] = D.id
+				program_design["name"] = D.name
+				program_design["desc"] = D.desc
+				program_list += list(program_design)
+
 		data["program_list"] = program_list
 	else
 		data["categories"] = categories
@@ -94,12 +113,19 @@
 		if("download")
 			if(!disk)
 				return
-			var/datum/design/nanites/downloaded = linked_techweb.isDesignResearchedID(params["program_id"]) //check if it's a valid design
-			if(!istype(downloaded))
-				return
+			var/datum/design/nanites/target_design = linked_techweb.isDesignResearchedID(params["program_id"]) //check if it's a valid design
+			if(!istype(target_design))
+				//Look for it in the local designs
+				for(var/datum/design/nanites/local_design in local_designs)
+					if(local_design.id == params["program_id"])
+						target_design = local_design
+						break
+
+				if(!istype(target_design))
+					return
 			if(disk.program)
 				qdel(disk.program)
-			disk.program = new downloaded.program_type
+			disk.program = new target_design.program_type
 			disk.name = "[initial(disk.name)] \[[disk.program.name]\]"
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 25, 0)
 			. = TRUE

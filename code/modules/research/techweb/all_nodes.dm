@@ -928,23 +928,23 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	export_price = 8000
 
-/datum/techweb_node/nanite_combat
-	id = "nanite_military"
-	display_name = "Military Nanite Programming"
-	description = "Nanite programs that perform military-grade functions."
-	prereq_ids = list("nanite_harmonic", "syndicate_basic")
-	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
-	export_price = 12500
+/datum/techweb_node/nanite_motive
+	id = "nanite_motive"
+	display_name = "Motive Nanite Programming"
+	description = "Nanite programs that can move around the body with purpose."
+	prereq_ids = list("nanite_synaptic", "nanite_harmonic")
+	design_ids = list("digestive_nanites", "transfer_nanites", "mitosis_nanites")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 8000
 
-/datum/techweb_node/nanite_hazard
-	id = "nanite_hazard"
-	display_name = "Hazard Nanite Programs"
-	description = "Extremely advanced Nanite programs with the potential of being extremely dangerous."
-	prereq_ids = list("nanite_harmonic", "alientech")
-	design_ids = list("spreading_nanites","mindcontrol_nanites","mitosis_nanites")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	export_price = 15000
+/datum/techweb_node/nanite_dangerous
+	id = "nanite_dangerous"
+	display_name = "Dangerous Nanite Programming"
+	description = "Nanite programs on the edge of legality and sanity."
+	prereq_ids = list("nanite_motive", "adv_weaponry")
+	design_ids = list("spreading_nanites", "pyro_nanites", "meltdown_nanites")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 12500
 
 ////////////////////////Alien technology////////////////////////
 /datum/techweb_node/alientech //AYYYYYYYYLMAOO tech

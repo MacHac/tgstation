@@ -1574,6 +1574,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 14							//High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list("Research Director", "Scientist")
 
+/datum/uplink_item/role_restricted/nanite_disk
+	name = "Illegal Nanite Programs"
+	desc = "A disk that can upgrade one nanite program hub with three highly illegal nanite programs.  Banned by galactic conventions, the programs on this disk can hijack existing colonies, \
+			briefly control people's minds, and even turn nanite colonies into bombs."
+	item = /obj/item/disk/illegal_nanite_disk
+	cost = 5				//Powerful, but takes some doing (and needs a hefty research investment to use)
+	restricted_roles = list("Research Director", "Scientist")
+
 /datum/uplink_item/role_restricted/gorillacubes
 	name = "Box of Gorilla Cubes"
 	desc = "A box with three Waffle Co. brand gorilla cubes. Eat big to get big. \

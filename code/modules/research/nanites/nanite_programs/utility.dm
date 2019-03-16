@@ -1,4 +1,58 @@
 //Programs that interact with other programs or nanites directly, or have other special purposes.
+/datum/nanite_program/triggered/transfer
+	name = "Colony Transfer"
+	desc = "Part of the cluster is launched at a nearby person via the windpipe, installing a local copy of the user's nanites."
+	trigger_cost = 25	//Doubles as the number of nanites launched; Can be 25, 50, or 75
+	rogue_types = list(/datum/nanite_program/necrotic)
+	extra_settings = list("Colony Size")
+
+/datum/nanite_program/triggered/transfer/set_extra_setting(user, setting)
+	if(setting == "Colony Size")
+		var/c_size = input("Choose how many nanites should be transferred per trigger", name) as null|anything in list(25, 50, 75)
+		if(!c_size)
+			return
+		trigger_cost = c_size
+
+/datum/nanite_program/triggered/transfer/get_extra_setting(setting)
+	if(setting == "Colony Size")
+		return trigger_cost
+
+/datum/nanite_program/triggered/transfer/copy_extra_settings_to(datum/nanite_program/triggered/transfer/target)
+	target.trigger_cost = trigger_cost
+
+/datum/nanite_program/triggered/transfer/trigger()
+	if(!..())
+		return FALSE
+
+	//The user sneezes out the colony, letting it seek the nearest live host.
+	var/nanites_to_transfer = trigger_cost
+	if(host_mob.stat != CONSCIOUS)	//Can't sneeze while asleep
+		return FALSE
+	host_mob.emote("sneeze")
+
+	//Find a nearby human-like without nanites
+	var/mob/living/carbon/human/target
+	for(var/mob/living/carbon/human/M in oview(2, host_mob))
+		if(!M.GetComponent(/datum/component/nanites))
+			target = M
+			break
+
+	if(!target)	//If no target can be found, half the nanites make it back to their host
+		consume_nanites(-1*(nanites_to_transfer/2))
+		host_mob.visible_message("<span class='danger'>A faint cloud is released by [host_mob]'s sneeze!</span>",
+			"<span class='warning'>A faint cloud is released by your sneeze, but most of it returns to you!</span>")
+		return FALSE
+
+	//Give the target an unsynced copy of the current host's nanites
+	target.AddComponent(/datum/component/nanites, nanites_to_transfer)
+	var/datum/component/nanites/new_nanites = target.GetComponent(/datum/component/nanites)
+	new_nanites.sync(null, nanites, copy_activation=TRUE)	//copy_activation prevents some things from getting stuck on
+
+	//We're not being sneaky here, show everyone what happened.
+	host_mob.visible_message("<span class='danger'>A faint cloud is released by [host_mob]'s sneeze, and rushes toward [target]!</span>",
+		"<span class='warning'>A faint cloud is released by your sneeze and rushes toward [target]!</span>")
+	to_chat(target, "<span class='danger'>A faint cloud envelops you and your skin begins to itch.</span>")
+
 /datum/nanite_program/viral
 	name = "Viral Replica"
 	desc = "The nanites constantly send encrypted signals attempting to forcefully copy their own programming into other nanite clusters."
@@ -197,6 +251,23 @@
 
 /datum/nanite_program/metabolic_synthesis/active_effect()
 	host_mob.adjust_nutrition(-0.5)
+
+/datum/nanite_program/digestive_reclaimation
+	name = "Digestive Reclaimation"
+	desc = "The nanites feed off the user's fat stores, rapidly (though inefficiently) replicating themselves."
+	use_rate = -2
+	rogue_types = list(/datum/nanite_program/toxic)
+
+/datum/nanite_program/digestive_reclaimation/check_conditions()
+	if(!iscarbon(host_mob))
+		return FALSE
+	var/mob/living/carbon/C = host_mob
+	if(C.nutrition <= NUTRITION_LEVEL_STARVING)
+		return FALSE
+	return ..()
+
+/datum/nanite_program/digestive_reclaimation/active_effect()
+	host_mob.adjust_nutrition(-6)	//Uses three nutrition per one nanite vs metabolic's one
 
 /datum/nanite_program/triggered/access
 	name = "Subdermal ID"
